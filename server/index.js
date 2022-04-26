@@ -3,6 +3,8 @@ const cors = require("cors");
 
 const connectDB = require("./db/connect");
 
+const characterRouter = require("./routes/character");
+
 const MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/untitled";
 const PORT = process.env.PORT || 4000;
@@ -11,6 +13,8 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+app.use("/character", characterRouter);
 
 const start = async () => {
   try {
