@@ -16,7 +16,9 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-UserSchema.methods.createJWT = () => {
+// Arrow 함수로는 this가 제대로 동작하지 않는다.
+// 그래서 일반 함수로 구현한다.
+UserSchema.methods.createJWT = function () {
   return jwt.sign(
     { id: this._id, userId: this.userId },
     process.env.JWT_SECRET_ACCESS_KEY,

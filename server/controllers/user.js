@@ -1,6 +1,5 @@
 const User = require("../models/user");
 const { StatusCodes } = require("http-status-codes");
-const user = require("../models/user");
 
 const signup = async (req, res) => {
   const userExist = await User.exists({ userId: req.body.userId });

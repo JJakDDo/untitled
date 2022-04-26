@@ -45,6 +45,9 @@ const CharacterSchema = new mongoose.Schema({
     type: Number,
     default: 100,
   },
+  userId: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("Characters", CharacterSchema);
