@@ -10,6 +10,8 @@ const characterRouter = require("./routes/character");
 const monsterRouter = require("./routes/monster");
 const userRouter = require("./routes/user");
 
+const errorHandler = require("./middlewares/errorHandler");
+
 const MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/untitled";
 const PORT = process.env.PORT || 4000;
@@ -22,6 +24,8 @@ app.use(express.json());
 app.use("/character", characterRouter);
 app.use("/monster", monsterRouter);
 app.use("/user", userRouter);
+
+app.use(errorHandler);
 
 const start = async () => {
   try {
