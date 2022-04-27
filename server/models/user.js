@@ -20,7 +20,7 @@ const UserSchema = new mongoose.Schema({
 // 그래서 일반 함수로 구현한다.
 UserSchema.methods.createJWT = function () {
   return jwt.sign(
-    { id: this._id, userId: this.userId },
+    { id: this._id, userId: this.userId, nickname: this.nickname },
     process.env.JWT_SECRET_ACCESS_KEY,
     {
       expiresIn: process.env.JWT_LIFETIME,

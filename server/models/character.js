@@ -7,15 +7,15 @@ const CharacterSchema = new mongoose.Schema({
   },
   str: {
     type: Number,
-    default: 10,
+    default: 0,
   },
   dex: {
     type: Number,
-    default: 10,
+    default: 0,
   },
   int: {
     type: Number,
-    default: 10,
+    default: 0,
   },
   attack: {
     type: Number,
@@ -45,8 +45,24 @@ const CharacterSchema = new mongoose.Schema({
     type: Number,
     default: 100,
   },
+  exp: {
+    type: Number,
+    default: 0,
+  },
+  requiredExp: {
+    type: Number,
+    default: 100,
+  },
   userId: {
     type: String,
+  },
+  equipment: {
+    type: Object,
+    default: {},
+  },
+  inventory: {
+    type: Array,
+    default: [],
   },
 });
 

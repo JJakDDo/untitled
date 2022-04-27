@@ -10,6 +10,9 @@ const MonsterSchema = new mongoose.Schema({
   criticalRate: Number,
   criticalDamage: Number,
   hp: Number,
+  exp: Number,
+  skills: Array,
+  drops: Array,
 });
 
 module.exports = mongoose.model("Monsters", MonsterSchema);

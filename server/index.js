@@ -9,8 +9,10 @@ const connectDB = require("./db/connect");
 const characterRouter = require("./routes/character");
 const monsterRouter = require("./routes/monster");
 const userRouter = require("./routes/user");
+const battleRouter = require("./routes/battle");
 
 const errorHandler = require("./middlewares/errorHandler");
+const authentication = require("./middlewares/authentication");
 
 const MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/untitled";
@@ -21,9 +23,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/character", characterRouter);
+app.use("/character", authentication, characterRouter);
 app.use("/monster", monsterRouter);
 app.use("/user", userRouter);
+app.use("/battle", battleRouter);
 
 app.use(errorHandler);
 

@@ -9,7 +9,7 @@ const authentication = (req, res, next) => {
   const token = authHeader.split(" ")[1];
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET_ACCESS_KEY);
-    req.user = { userId: payload.userId };
+    req.user = { userId: payload.userId, nickname: payload.nickname };
     next();
   } catch (err) {
     throw CustomError.Unauthenticated("Invalid Authentication");
