@@ -19,6 +19,7 @@ const attack = (ca, ccr, ccd, md, me, mh, cName, mName, logs) => {
   } else {
     battleLog += `${cName} 이/가 일반 공격`;
   }
+  // 데미지는 나의 공격력 - 상대방의 방어력 * 0.5로 계산한다.
   ca = ca - Math.ceil(md * 0.5);
   battleLog += `(${ca})을 했다.`;
   mh = mh - ca >= 0 ? mh - ca : 0;
@@ -83,10 +84,14 @@ const battle = async (req, res) => {
     }
     currentTurn++;
   }
+  // 몬스터 사망 시
   if (mh <= 0) {
+    // 해당 몬스터의 경험치를 획득한다.
     logs.push(`${exp} exp 획득!`);
     currentExp += exp;
     response = { ...response, levelUp: false };
+
+    //레벨업할때
     if (currentExp >= requiredExp) {
       currentExp -= requiredExp;
       requiredExp += 100;
@@ -94,6 +99,7 @@ const battle = async (req, res) => {
       response = { ...response, levelUp: true };
     }
     let dropped = [];
+    // 각 아이템의 드랍률을 확인해서 플레이어에게 지급
     for (let i = 0; i < drops.length; i++) {
       const item = await Item.findById(drops[i]);
       if (item) {
@@ -115,6 +121,7 @@ const battle = async (req, res) => {
     response = { ...response, exp, result: "win" };
   }
 
+  // 플레이서 사망 시
   if (ch <= 0) {
     response = { ...response, exp: 0, result: "lose" };
   }

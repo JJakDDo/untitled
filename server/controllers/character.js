@@ -40,22 +40,22 @@ const equipItems = async (req, res) => {
     inventory.push(equipment[equipItem.type].toString());
     const removedItem = await Item.findById(equipment[equipItem.type]);
     let changedStat = {};
+    // 스탯을 반복적으로 돌면서 만약 아이템에 해당 스탯이 존재하면 현재 캐릭터의 스탯에서 뺀다.
     for (const stat in STATS) {
-      if (removedItem[stat]) {
-        character[stat] -= removedItem[stat];
-        changedStat = { ...changedStat, [stat]: character[stat] };
+      if (removedItem[STATS[stat]]) {
+        character[STATS[stat]] -= removedItem[STATS[stat]];
+        changedStat = { ...changedStat, [STATS[stat]]: character[STATS[stat]] };
       }
     }
   }
 
   equipment = { ...equipment, [equipItem.type]: equipItem._id.toString() };
   let changedStat = {};
+  // 스탯을 반복적으로 돌면서 만약 아이템에 해당 스탯이 존재하면 현재 캐릭터의 스탯에 더해준다.
   for (const stat in STATS) {
-    console.log(stat);
-    if (equipItem[stat]) {
-      console.log(equipItem[stat]);
-      character[stat] += equipItem[stat];
-      changedStat = { ...changedStat, [stat]: character[stat] };
+    if (equipItem[STATS[stat]]) {
+      character[STATS[stat]] += equipItem[STATS[stat]];
+      changedStat = { ...changedStat, [STATS[stat]]: character[STATS[stat]] };
     }
   }
   // 장착 한 후에는 인벤토리에서 삭제
