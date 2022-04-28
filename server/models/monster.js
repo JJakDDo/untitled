@@ -13,6 +13,8 @@ const MonsterSchema = new mongoose.Schema({
   exp: Number,
   skills: Array,
   drops: Array,
+  image: String,
+  field: String,
 });
 
 module.exports = mongoose.model("Monsters", MonsterSchema);

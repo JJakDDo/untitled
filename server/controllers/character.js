@@ -83,8 +83,50 @@ const getInventory = async (req, res) => {
   res.status(StatusCodes.OK).json({ data });
 };
 
+const getCharacter = async (req, res) => {
+  const character = await Character.findOne({ userId: req.user.userId });
+  if (!character) {
+    throw CustomError.BadRequest("User does not exist!");
+  }
+
+  const {
+    level,
+    str,
+    dex,
+    int,
+    attack,
+    defense,
+    speed,
+    evasion,
+    criticalRate,
+    criticalDamage,
+    hp,
+    exp,
+    requiredExp,
+    userId,
+  } = character;
+
+  res.status(StatusCodes.OK).json({
+    level,
+    str,
+    dex,
+    int,
+    attack,
+    defense,
+    speed,
+    evasion,
+    criticalRate,
+    criticalDamage,
+    hp,
+    exp,
+    requiredExp,
+    userId,
+  });
+};
+
 module.exports = {
   createCharacter,
   equipItems,
   getInventory,
+  getCharacter,
 };
