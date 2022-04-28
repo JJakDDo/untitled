@@ -4,14 +4,20 @@ import React, { useState, useEffect } from "react";
 import { FieldNav } from "../styles/Field.styled";
 import { FlexBox } from "../styles/FlexBox.styled";
 import { MonsterGrid } from "../styles/Monster.styled";
+import { CardButton } from "../styles/CardButton.styled";
 
+import BattleModal from "../components/BattleModal";
+import ManualBattleModal from "../components/ManualBattleModal";
 import Monster from "../components/Monster";
 
-const FIELDLIST = ["태초마을", "옐로우시티", "상록시티"];
+const FIELDLIST = ["태초마을", "상록시티", "옐로우시티"];
 
 const Field = () => {
   const [currentField, setCurrentField] = useState(0);
   const [monsters, setMonsters] = useState([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [battleResult, setBattleResult] = useState({});
+  const [selectedMonster, setSelectedMonster] = useState({});
 
   const changeField = (value) => {
     setCurrentField(value);
@@ -45,9 +51,26 @@ const Field = () => {
       </FieldNav>
       <MonsterGrid>
         {monsters.map((monster) => {
-          return <Monster key={monster._id} {...monster} />;
+          return (
+            <Monster
+              key={monster._id}
+              {...monster}
+              setIsModalVisible={setIsModalVisible}
+              setBattleResult={setBattleResult}
+              setSelectedMonster={setSelectedMonster}
+            />
+          );
         })}
       </MonsterGrid>
+      {/*isModalVisible && (
+        <BattleModal setIsModalVisible={setIsModalVisible} {...battleResult} />
+      )*/}
+      {isModalVisible && (
+        <ManualBattleModal
+          setIsModalVisible={setIsModalVisible}
+          {...selectedMonster}
+        />
+      )}
     </FlexBox>
   );
 };
