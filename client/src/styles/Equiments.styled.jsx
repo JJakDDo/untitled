@@ -14,8 +14,8 @@ export const EquippedContainer = styled.div`
 export const Equipments = styled.div`
   width: 150px;
   height: 350px;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
   justify-content: space-around;
   align-items: center;
   & > img {
