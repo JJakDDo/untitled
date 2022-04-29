@@ -73,14 +73,21 @@ const getInventory = async (req, res) => {
     throw CustomError.BadRequest("User does not exist!");
   }
 
-  const { inventory } = character;
-  const data = await Promise.all(
+  const { inventory, equipment } = character;
+  const itemsInInventory = await Promise.all(
     inventory.map(async (itemId) => {
       const item = await Item.findById(itemId);
       return item;
     })
   );
-  res.status(StatusCodes.OK).json({ data });
+  const equipped = [];
+  for (const itemType in equipment) {
+    const item = await Item.findById(equipment[itemType]);
+    equipped.push(item);
+  }
+  res
+    .status(StatusCodes.OK)
+    .json({ inventory: itemsInInventory, equipment: equipped });
 };
 
 const getCharacter = async (req, res) => {
