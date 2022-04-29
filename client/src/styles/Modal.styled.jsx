@@ -47,12 +47,29 @@ export const ModalAttackContainer = styled.div`
 `;
 
 export const ModalResultContainer = styled.div`
-  display: grid;
-  width: 350px;
-  height: 350px;
+  display: flex;
+  flex-direction: column;
   justify-items: center;
   align-items: center;
+  width: 350px;
+  height: 350px;
   background-color: white;
+`;
+
+export const ModalResultImageContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 250px;
+  height: 64px;
+  margin: 0 auto;
+  & > img {
+    width: 64px;
+    height: 64px;
+    margin-top: 15px;
+  }
 `;
 
 export const MonsterContainer = styled.div`

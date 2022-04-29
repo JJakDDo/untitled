@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+import ImageWithTooltip from "./ImageWithTooltip";
+import TooltipText from "./TooltipText";
+
 import {
   ModalOverlay,
   ModalContainer,
@@ -10,8 +13,10 @@ import {
   CharacterContainer,
   CloseButton,
   ModalResultContainer,
+  ModalResultImageContainer,
 } from "../styles/Modal.styled";
 import { CardButton } from "../styles/CardButton.styled";
+import { Tooltip } from "../styles/Tooltip.styled";
 
 const ManualBattleModal = ({ id, image, name, setIsModalVisible }) => {
   const [characterHp, setCharacterHp] = useState("");
@@ -20,6 +25,11 @@ const ManualBattleModal = ({ id, image, name, setIsModalVisible }) => {
   const [battleID, setBattleID] = useState(0);
   const [exp, setExp] = useState(0);
   const [items, setItems] = useState([]);
+  const [tooltipVisible, setTooltipVisible] = useState("hidden");
+  const [tooltipX, setTooltipX] = useState(0);
+  const [tooltipY, setTooltipY] = useState(0);
+  const [itemType, setItemType] = useState("");
+
   const manualAttack = async (skillName) => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -43,8 +53,10 @@ const ManualBattleModal = ({ id, image, name, setIsModalVisible }) => {
         setCharacterHp(response.data.characterHP);
         setMonsterHp(response.data.monsterHP);
         if (response.data.result === "win" || response.data.result === "lose") {
+          console.log(response.data);
           setIsOver(true);
           setExp(response.data.exp);
+          setItems(response.data.item);
         }
       }
     }
@@ -75,6 +87,21 @@ const ManualBattleModal = ({ id, image, name, setIsModalVisible }) => {
           <ModalResultContainer>
             <h3>EXP</h3>
             <p>{exp}</p>
+            <h3>아이템</h3>
+            <ModalResultImageContainer>
+              {items.map((item, idx) => {
+                return (
+                  <ImageWithTooltip
+                    key={item._id}
+                    setTooltipVisible={setTooltipVisible}
+                    setItemType={setItemType}
+                    setTooltipX={setTooltipX}
+                    setTooltipY={setTooltipY}
+                    type={idx}
+                  ></ImageWithTooltip>
+                );
+              })}
+            </ModalResultImageContainer>
           </ModalResultContainer>
         ) : (
           <ModalAttackContainer>
@@ -100,6 +127,13 @@ const ManualBattleModal = ({ id, image, name, setIsModalVisible }) => {
           </ModalAttackContainer>
         )}
       </ModalContainer>
+      <Tooltip
+        visibility={tooltipVisible}
+        tooltipX={tooltipX}
+        tooltipY={tooltipY}
+      >
+        <TooltipText item={items[itemType]} />
+      </Tooltip>
     </ModalOverlay>
   );
 };

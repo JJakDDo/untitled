@@ -293,7 +293,7 @@ const manualBattle = async (req, res) => {
           // if(inventory.includes(dropItem)){
           //   // 아이템의 수량을 증가
           // }
-          dropped.push({ id: drops[i], name: item.name });
+          dropped.push(item);
           inventory.push(drops[i]);
         }
       }
