@@ -7,7 +7,6 @@ import { InventoryContainer } from "../styles/Inventory.styled";
 import { Tooltip } from "../styles/Tooltip.styled";
 
 const InventoryGrid = ({ inventoryItems }) => {
-  console.log(inventoryItems);
   const [tooltipVisible, setTooltipVisible] = useState("hidden");
   const [tooltipX, setTooltipX] = useState(0);
   const [tooltipY, setTooltipY] = useState(0);
@@ -17,7 +16,7 @@ const InventoryGrid = ({ inventoryItems }) => {
       {inventoryItems.map((item, idx) => {
         return (
           <ImageWithTooltip
-            key={item._id}
+            key={idx}
             setTooltipVisible={setTooltipVisible}
             setItemType={setItemType}
             setTooltipX={setTooltipX}

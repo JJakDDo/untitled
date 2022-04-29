@@ -15,9 +15,7 @@ const Equipment = ({ equippedItems }) => {
   const [tooltipX, setTooltipX] = useState(0);
   const [tooltipY, setTooltipY] = useState(0);
   const [itemType, setItemType] = useState("");
-  useEffect(() => {
-    console.log(equippedItems);
-  }, []);
+
   return (
     <EquippedContainer>
       <Equipments>

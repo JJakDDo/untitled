@@ -15,7 +15,6 @@ const ImageWithTooltip = ({
       }}
       onMouseOut={() => setTooltipVisible("hidden")}
       onMouseMove={(e) => {
-        console.log(e.clientX + 20);
         setTooltipX(e.clientX + 20);
         setTooltipY(e.clientY);
       }}

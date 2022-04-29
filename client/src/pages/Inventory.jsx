@@ -10,7 +10,6 @@ const Inventory = () => {
   const [equippedItems, setEquippedItems] = useState([]);
   const getInventory = async () => {
     const token = localStorage.getItem("token");
-    console.log(token);
     if (token) {
       const response = await axios.get(
         "http://localhost:4000/character/inventory",
@@ -20,7 +19,6 @@ const Inventory = () => {
           },
         }
       );
-      console.log(response);
       setInventoryItems(response.data.inventory);
       const tempEquipment = {};
       response.data.equipment.forEach((item) => {

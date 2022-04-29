@@ -75,8 +75,7 @@ const getInventory = async (req, res) => {
   const { inventory, equipment } = character;
   const equipped = [];
   for (const itemType in equipment) {
-    const item = await Item.findById(equipment[itemType]);
-    equipped.push(item);
+    equipped.push(equipment[itemType]);
   }
   res.status(StatusCodes.OK).json({ inventory, equipment: equipped });
 };
