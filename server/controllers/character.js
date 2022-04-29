@@ -28,8 +28,7 @@ const equipItems = async (req, res) => {
   if (inventoryIdx < 0 || inventoryIdx >= character.inventory.length) {
     throw CustomError.BadRequest("Cannot equip items player do not own!");
   }
-
-  const equipItem = await Item.findById(character.inventory[inventoryIdx]);
+  const equipItem = character.inventory[inventoryIdx];
   if (equipItem.type === "material") {
     throw CustomError.BadRequest("Cannot equip materials!");
   }
@@ -37,24 +36,24 @@ const equipItems = async (req, res) => {
   let { equipment, inventory } = character;
   // 장착 하고 있던 아이템은 인벤토리에 추가
   if (equipment[equipItem.type]) {
-    inventory.push(equipment[equipItem.type].toString());
-    const removedItem = await Item.findById(equipment[equipItem.type]);
+    inventory.push(equipment[equipItem.type]);
+    const removedItem = equipment[equipItem.type];
     let changedStat = {};
     // 스탯을 반복적으로 돌면서 만약 아이템에 해당 스탯이 존재하면 현재 캐릭터의 스탯에서 뺀다.
     for (const stat in STATS) {
       if (removedItem[STATS[stat]]) {
-        character[STATS[stat]] -= removedItem[STATS[stat]];
+        character[STATS[stat]] -= removedItem[STATS[stat]].value;
         changedStat = { ...changedStat, [STATS[stat]]: character[STATS[stat]] };
       }
     }
   }
 
-  equipment = { ...equipment, [equipItem.type]: equipItem._id.toString() };
+  equipment = { ...equipment, [equipItem.type]: equipItem };
   let changedStat = {};
   // 스탯을 반복적으로 돌면서 만약 아이템에 해당 스탯이 존재하면 현재 캐릭터의 스탯에 더해준다.
   for (const stat in STATS) {
     if (equipItem[STATS[stat]]) {
-      character[STATS[stat]] += equipItem[STATS[stat]];
+      character[STATS[stat]] += equipItem[STATS[stat]].value;
       changedStat = { ...changedStat, [STATS[stat]]: character[STATS[stat]] };
     }
   }
@@ -74,20 +73,12 @@ const getInventory = async (req, res) => {
   }
 
   const { inventory, equipment } = character;
-  const itemsInInventory = await Promise.all(
-    inventory.map(async (itemId) => {
-      const item = await Item.findById(itemId);
-      return item;
-    })
-  );
   const equipped = [];
   for (const itemType in equipment) {
     const item = await Item.findById(equipment[itemType]);
     equipped.push(item);
   }
-  res
-    .status(StatusCodes.OK)
-    .json({ inventory: itemsInInventory, equipment: equipped });
+  res.status(StatusCodes.OK).json({ inventory, equipment: equipped });
 };
 
 const getCharacter = async (req, res) => {
