@@ -35,7 +35,10 @@ const Inventory = () => {
   return (
     <FlexBox>
       <Equipment equippedItems={equippedItems}></Equipment>
-      <InventoryGrid inventoryItems={inventoryItems}></InventoryGrid>
+      <InventoryGrid
+        inventoryItems={inventoryItems}
+        getInventory={getInventory}
+      ></InventoryGrid>
     </FlexBox>
   );
 };

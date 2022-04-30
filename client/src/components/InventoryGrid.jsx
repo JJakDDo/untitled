@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 import ImageWithTooltip from "./ImageWithTooltip";
 import TooltipText from "./TooltipText";
@@ -6,11 +7,35 @@ import TooltipText from "./TooltipText";
 import { InventoryContainer } from "../styles/Inventory.styled";
 import { Tooltip } from "../styles/Tooltip.styled";
 
-const InventoryGrid = ({ inventoryItems }) => {
+const InventoryGrid = ({ inventoryItems, getInventory }) => {
   const [tooltipVisible, setTooltipVisible] = useState("hidden");
   const [tooltipX, setTooltipX] = useState(0);
   const [tooltipY, setTooltipY] = useState(0);
   const [itemType, setItemType] = useState("");
+
+  /*컴포넌트에 onClick 또는 onContextMenu 처럼 이벤트를 쓸 수 는 없다. props로 보내야한다. */
+  const equipItem = async (e, idx) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    if (token) {
+      const response = await axios.post(
+        "http://localhost:4000/character/equip",
+        {
+          inventoryIdx: idx,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        console.log(response);
+        getInventory();
+      }
+    }
+  };
+
   return (
     <InventoryContainer>
       {inventoryItems.map((item, idx) => {
@@ -22,6 +47,7 @@ const InventoryGrid = ({ inventoryItems }) => {
             setTooltipX={setTooltipX}
             setTooltipY={setTooltipY}
             type={idx}
+            onContextMenu={equipItem}
           ></ImageWithTooltip>
         );
       })}

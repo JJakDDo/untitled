@@ -6,6 +6,7 @@ const ImageWithTooltip = ({
   setTooltipX,
   setTooltipY,
   type,
+  onContextMenu,
 }) => {
   return (
     <img
@@ -18,6 +19,7 @@ const ImageWithTooltip = ({
         setTooltipX(e.clientX + 20);
         setTooltipY(e.clientY);
       }}
+      onContextMenu={(e) => onContextMenu(e, type)}
     ></img>
   );
 };
