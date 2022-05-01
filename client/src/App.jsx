@@ -22,7 +22,7 @@ function App() {
           <Route path='/' element={<Login />} />
           <Route path='/character' element={<Character />} />
           <Route path='/inventory' element={<Inventory />} />
-          <Route path='/craft' elemnt={<Craft />} />
+          <Route path='/craft' element={<Craft />} />
           <Route path='/field' element={<Field />} />
         </Routes>
       </BrowserRouter>

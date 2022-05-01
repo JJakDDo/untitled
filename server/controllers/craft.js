@@ -35,48 +35,49 @@ const craftItems = async (req, res) => {
     let crafted = [];
     for (let i = 0; i < requiredItemIndex.length; i++) {
       inventory[requiredItemIndex[i]].amount -= required[i].amount;
-      let newStatObj = {};
-      STATS.forEach((stat) => {
-        if (item[stat]) {
-          const newStat = Math.floor(
-            Math.random() * item[stat] + item[stat] * 0.5
-          );
-          let tier = "";
-          if (newStat >= item[stat] * 1.45) {
-            tier = "S";
-          } else if (newStat >= item[stat] * 1.3) {
-            tier = "A";
-          } else if (newStat >= item[stat] * 1.1) {
-            tier = "B";
-          } else if (newStat >= item[stat] * 0.9) {
-            tier = "C";
-          } else if (newStat >= item[stat] * 0.7) {
-            tier = "D";
-          } else {
-            tier = "E";
-          }
-          newStatObj[stat] = { value: newStat, tier };
-        }
-      });
-      crafted.push({
-        _id: item._id,
-        level: item.level,
-        name: item.name,
-        description: item.description,
-        price: item.price,
-        type: item.type,
-        ...newStatObj,
-      });
-      inventory.push({
-        _id: item._id.toString(),
-        level: item.level,
-        name: item.name,
-        description: item.description,
-        price: item.price,
-        type: item.type,
-        ...newStatObj,
-      });
     }
+
+    let newStatObj = {};
+    STATS.forEach((stat) => {
+      if (item[stat]) {
+        const newStat = Math.floor(
+          Math.random() * item[stat] + item[stat] * 0.5
+        );
+        let tier = "";
+        if (newStat >= item[stat] * 1.45) {
+          tier = "S";
+        } else if (newStat >= item[stat] * 1.3) {
+          tier = "A";
+        } else if (newStat >= item[stat] * 1.1) {
+          tier = "B";
+        } else if (newStat >= item[stat] * 0.9) {
+          tier = "C";
+        } else if (newStat >= item[stat] * 0.7) {
+          tier = "D";
+        } else {
+          tier = "E";
+        }
+        newStatObj[stat] = { value: newStat, tier };
+      }
+    });
+    crafted.push({
+      _id: item._id,
+      level: item.level,
+      name: item.name,
+      description: item.description,
+      price: item.price,
+      type: item.type,
+      ...newStatObj,
+    });
+    inventory.push({
+      _id: item._id.toString(),
+      level: item.level,
+      name: item.name,
+      description: item.description,
+      price: item.price,
+      type: item.type,
+      ...newStatObj,
+    });
 
     await Character.findOneAndUpdate({ userId }, { inventory });
     return res.status(StatusCodes.CREATED).json(crafted);
