@@ -65,10 +65,23 @@ export const ModalResultImageContainer = styled.div`
   width: 250px;
   height: 64px;
   margin: 0 auto;
-  & > img {
-    width: 64px;
-    height: 64px;
+
+  & > .item {
+    position: relative;
     margin-top: 15px;
+    & > img {
+      width: 64px;
+      height: 64px;
+      background-color: black;
+    }
+    & > div {
+      position: absolute;
+      color: white;
+      bottom: 0;
+      right: 0;
+      padding-right: 5px;
+      padding-bottom: 5px;
+    }
   }
 `;
 

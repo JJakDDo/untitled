@@ -18,7 +18,13 @@ export const Equipments = styled.div`
   grid-template-rows: repeat(3, 1fr);
   justify-content: space-around;
   align-items: center;
+  // 장착한 아이템이 없을 때
   & > img {
+    width: 96px;
+    height: 96px;
+  }
+  // 장착한 아이템이 있을 때
+  & > .item > img {
     width: 96px;
     height: 96px;
   }

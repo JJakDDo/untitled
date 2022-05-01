@@ -7,9 +7,11 @@ const ImageWithTooltip = ({
   setTooltipY,
   type,
   onContextMenu,
+  amount,
 }) => {
   return (
-    <img
+    <div
+      className='item'
       onMouseOver={() => {
         setTooltipVisible("visible");
         setItemType(type);
@@ -19,8 +21,14 @@ const ImageWithTooltip = ({
         setTooltipX(e.clientX + 20);
         setTooltipY(e.clientY);
       }}
-      onContextMenu={(e) => onContextMenu(e, type)}
-    ></img>
+      onContextMenu={(e) => {
+        e.preventDefault();
+        if (!amount) onContextMenu(type);
+      }}
+    >
+      <img></img>
+      {amount && <div>{amount}</div>}
+    </div>
   );
 };
 

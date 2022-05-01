@@ -57,6 +57,7 @@ const ManualBattleModal = ({ id, image, name, setIsModalVisible }) => {
           setIsOver(true);
           setExp(response.data.exp);
           setItems(response.data.item);
+          console.log(response.data.item);
         }
       }
     }
@@ -98,6 +99,7 @@ const ManualBattleModal = ({ id, image, name, setIsModalVisible }) => {
                     setTooltipX={setTooltipX}
                     setTooltipY={setTooltipY}
                     type={idx}
+                    amount={item.amount}
                   ></ImageWithTooltip>
                 );
               })}

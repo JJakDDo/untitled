@@ -14,8 +14,7 @@ const InventoryGrid = ({ inventoryItems, getInventory }) => {
   const [itemType, setItemType] = useState("");
 
   /*컴포넌트에 onClick 또는 onContextMenu 처럼 이벤트를 쓸 수 는 없다. props로 보내야한다. */
-  const equipItem = async (e, idx) => {
-    e.preventDefault();
+  const equipItem = async (idx) => {
     const token = localStorage.getItem("token");
     if (token) {
       const response = await axios.post(
@@ -48,6 +47,7 @@ const InventoryGrid = ({ inventoryItems, getInventory }) => {
             setTooltipY={setTooltipY}
             type={idx}
             onContextMenu={equipItem}
+            amount={item.amount}
           ></ImageWithTooltip>
         );
       })}

@@ -7,9 +7,20 @@ export const InventoryContainer = styled.div`
   grid-template-columns: repeat(8, 1fr);
   gap: 2px;
 
-  & > img {
-    width: 64px;
-    height: 64px;
-    background-color: black;
+  & > .item {
+    position: relative;
+    & > img {
+      width: 64px;
+      height: 64px;
+      background-color: black;
+    }
+    & > div {
+      position: absolute;
+      color: white;
+      bottom: 0;
+      right: 0;
+      padding-right: 5px;
+      padding-bottom: 5px;
+    }
   }
 `;
