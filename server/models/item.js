@@ -18,6 +18,7 @@ const ItemSchema = new mongoose.Schema({
   price: Number,
   dropRate: Number,
   required: Array,
+  maxDrop: Number,
 });
 
 module.exports = mongoose.model("Items", ItemSchema);
