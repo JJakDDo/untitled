@@ -9,6 +9,7 @@ const Navbar = () => {
     <Nav>
       <Link to='/character'>캐릭터</Link>
       <Link to='/inventory'>인벤토리</Link>
+      <Link to='/craft'>제작</Link>
       <Link to='/field'>사냥터</Link>
     </Nav>
   );

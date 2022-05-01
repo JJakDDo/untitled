@@ -17,6 +17,7 @@ const ItemSchema = new mongoose.Schema({
   hp: Number,
   price: Number,
   dropRate: Number,
+  required: Array,
 });
 
 module.exports = mongoose.model("Items", ItemSchema);

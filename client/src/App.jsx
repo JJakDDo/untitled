@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Character from "./pages/Character";
 import Inventory from "./pages/Inventory";
 import Field from "./pages/Field";
+import Craft from "./pages/Craft";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -21,6 +22,7 @@ function App() {
           <Route path='/' element={<Login />} />
           <Route path='/character' element={<Character />} />
           <Route path='/inventory' element={<Inventory />} />
+          <Route path='/craft' elemnt={<Craft />} />
           <Route path='/field' element={<Field />} />
         </Routes>
       </BrowserRouter>

@@ -10,6 +10,7 @@ const characterRouter = require("./routes/character");
 const monsterRouter = require("./routes/monster");
 const userRouter = require("./routes/user");
 const battleRouter = require("./routes/battle");
+const craftRouter = require("./routes/craft");
 
 const errorHandler = require("./middlewares/errorHandler");
 const authentication = require("./middlewares/authentication");
@@ -27,6 +28,7 @@ app.use("/character", authentication, characterRouter);
 app.use("/monster", monsterRouter);
 app.use("/user", userRouter);
 app.use("/battle", battleRouter);
+app.use("/craft", craftRouter);
 
 app.use(errorHandler);
 
