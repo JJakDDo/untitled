@@ -52,12 +52,14 @@ const ManualBattleModal = ({ id, image, name, setIsModalVisible }) => {
       if (response.status === 200) {
         setCharacterHp(response.data.characterHP);
         setMonsterHp(response.data.monsterHP);
-        if (response.data.result === "win" || response.data.result === "lose") {
-          console.log(response.data);
+        if (response.data.result === "win") {
           setIsOver(true);
           setExp(response.data.exp);
           setItems(response.data.item);
-          console.log(response.data.item);
+        } else if (response.data.result === "lose") {
+          setIsOver(true);
+          setExp(response.data.exp);
+          setItems([]);
         }
       }
     }
