@@ -16,6 +16,8 @@ const Recipes = ({
   setItemType,
   setTooltipX,
   setTooltipY,
+  setCraftedItem,
+  setIsModalVisible,
 }) => {
   const craftItems = async (id) => {
     const token = localStorage.getItem("token");
@@ -30,10 +32,11 @@ const Recipes = ({
         }
       );
       if (response.status === 201) {
-        alert("제작 성공!");
+        setCraftedItem(response.data[0]);
       } else {
-        alert("제작 실패!");
+        setCraftedItem({});
       }
+      setIsModalVisible(true);
     }
   };
 

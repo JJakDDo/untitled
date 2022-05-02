@@ -3,6 +3,7 @@ import axios from "axios";
 
 import Recipes from "../components/Recipes";
 import TooltipText from "../components/TooltipText";
+import CraftResultModal from "../components/CraftResultModal";
 
 import { FlexBox } from "../styles/FlexBox.styled";
 import { Tooltip } from "../styles/Tooltip.styled";
@@ -13,6 +14,8 @@ const Craft = () => {
   const [tooltipX, setTooltipX] = useState(0);
   const [tooltipY, setTooltipY] = useState(0);
   const [itemType, setItemType] = useState("");
+  const [isModalVisible, setIsModalVisible] = useState(true);
+  const [craftedItem, setCraftedItem] = useState({});
 
   const getRecipes = async () => {
     const response = await axios.get(`http://localhost:4000/craft`);
@@ -36,6 +39,8 @@ const Craft = () => {
             setItemType={setItemType}
             setTooltipX={setTooltipX}
             setTooltipY={setTooltipY}
+            setCraftedItem={setCraftedItem}
+            setIsModalVisible={setIsModalVisible}
           />
         );
       })}
@@ -46,6 +51,12 @@ const Craft = () => {
       >
         <TooltipText item={itemType} isCrafting={true} />
       </Tooltip>
+      {isModalVisible && (
+        <CraftResultModal
+          setIsModalVisible={setIsModalVisible}
+          craftedItem={craftedItem}
+        />
+      )}
     </FlexBox>
   );
 };
